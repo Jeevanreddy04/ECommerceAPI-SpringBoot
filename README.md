@@ -21,7 +21,9 @@ This application uses PostgreSQL as its primary relational database, suitable fo
 spring.datasource.url=jdbc:postgresql://localhost:5432/ecommerce_db
 spring.datasource.username=<your-username>
 spring.datasource.password=<your-password>
-spring.jpa.hibernate.ddl-auto=update  
+spring.jpa.hibernate.ddl-auto=update
+
+```
 
 
 ## Core Modules
