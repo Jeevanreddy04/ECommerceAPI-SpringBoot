@@ -1,52 +1,98 @@
-Title:
+ECommerceAPI-SpringBoot – Technical Documentation
+Overview
 
-ECommerceAPI-SpringBoot – A RESTful backend API for E-Commerce applications built with Spring Boot and PostgreSQL.
+A production-style E-Commerce backend API built with Spring Boot and PostgreSQL.
+This backend provides APIs to manage Admins, Carriers, Customers, Products, and Orders.
 
-Description:
+The application follows a Controller → Service → Repository architecture, ensuring clean separation of concerns and scalability.
 
-This project is a Spring Boot-based backend for an E-Commerce platform. It provides REST APIs to manage different roles and core functionalities:
+Persistence: PostgreSQL
 
-1. Admin
+This application uses PostgreSQL as its primary relational database, suitable for production-grade applications.
 
-Create and manage admin users.
+Database Setup
 
-Add, update, or delete admin addresses.
+Install PostgreSQL and create a database (e.g., ecommerce_db).
 
-Add and update products.
+Run the provided schema SQL to create the required tables:
 
-View pending orders.
+admins, customers, carriers, products, orders, addresses
 
-Assign carriers to deliver orders.
 
-2. Carrier
+Configure database in application.properties:
 
-Register and manage carrier accounts.
+spring.datasource.url=jdbc:postgresql://localhost:5432/ecommerce_db
+spring.datasource.username=<your-username>
+spring.datasource.password=<your-password>
+spring.jpa.hibernate.ddl-auto=update
 
-View assigned orders and delivery addresses.
+Core Modules
+Admin
 
-Update order delivery status.
+Create, update, and manage admin users
 
-3. Customer
+Add, update, or delete admin addresses
 
-Register and manage customer accounts.
+Add and update products
 
-Browse products.
+View pending orders
 
-Place and track orders.
+Assign carriers to orders
 
-Manage shipping addresses.
+Carrier
 
-The APIs follow a Controller-Service-Repository architecture, ensuring clean separation of concerns and scalability. Responses are wrapped in a custom ResponseStructure for consistency.
+Register and manage carrier accounts
 
-💡 Technologies Used:
+View assigned orders and delivery addresses
+
+Update order delivery status
+
+Customer
+
+Register and manage customer accounts
+
+Browse and search products
+
+Place and track orders
+
+Manage shipping addresses
+
+# API Endpoints
+
+| Module   | Method | Endpoint                                                | Description                  |
+|----------|--------|--------------------------------------------------------|------------------------------|
+| Admin    | POST   | /admin/save                                            | Create new admin             |
+| Admin    | PATCH  | /admin/addaddress/{mob}                                | Add addresses to admin       |
+| Admin    | GET    | /admin/getadmin/{mob}                                  | Get admin by mobile number   |
+| Admin    | DELETE | /admin/deleteadd/{adminId}/address/{addressId}        | Delete admin address         |
+| Carrier  | POST   | /admin/savecarrier                                     | Add new carrier              |
+| Carrier  | GET    | /admin/seeallcarriers                                  | Get all carriers             |
+| Carrier  | GET    | /admin/findcarrier/{mob}                               | Get carrier by mobile number |
+| Carrier  | DELETE | /admin/deletecarrier/{mob}                             | Delete carrier               |
+| Products | POST   | /admin/addproduct                                      | Add new product              |
+| Products | GET    | /admin/getproducts                                     | Get all products             |
+| Products | PATCH  | /admin/updateproduct/{id}/{status}                     | Update product status        |
+| Orders   | GET    | /admin/seependingorders                                | Get pending orders           |
+| Orders   | PATCH  | /admin/updatecarrier/assigncarrier/{ordid}/{carriermobno}/{addid} | Assign carrier to order |
+
+
+Controller-Service-Repository Architecture – clean separation of API, business logic, and DB operations
+
+Validation – input validated via @Valid and Jakarta Validation
+
+Custom Response – all responses are wrapped in ResponseStructure for consistency
+
+Role Management – separate APIs for Admin, Carrier, and Customer
+
+Technologies Used
 
 Spring Boot
 
 Java
 
-JPA / Hibernate
-
 PostgreSQL
+
+JPA / Hibernate
 
 RESTful APIs
 
